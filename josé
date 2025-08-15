@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu de Acessibilidade</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="acessibilidade" class="menu-acessibilidade">
+    <button id="botao-acessibilidade" class="btn btn-primary fw-bold rotacao-botao" aria-expanded="false" aria-controls="opcoes-acessibilidade">
+      acessibilidade
+    </button>
+    <div id="opcoes-acessibilidade" class="opcoes-acessibilidade">
+      <button id="aumentar-fonte" class="btn btn-primary fw-bold">A+</button>
+      <button id="diminuir-fonte" class="btn btn-primary fw-bold">A-</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+/* Estilo base dos botões */
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+/* Posicionamento do menu */
+.menu-acessibilidade {
+  position: fixed;
+  top: 2rem;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Rotação do botão */
+.rotacao-botao {
+  transform: rotate(-90deg);
+  transform-origin: right center;
+  transition: transform 0.3s ease;
+}
+
+/* Estilo das opções */
+.opcoes-acessibilidade {
+  margin-top: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.opcoes-acessibilidade button {
+  margin-bottom: 5px;
+}
+
+/* Classe para mostrar a lista */
+.apresenta-lista {
+  display: flex;
+}
+document.addEventListener('DOMContentLoaded', function () {
+  const botaoDeAcessibilidade = document.getElementById('botao-acessibilidade');
+  const opcoesDeAcessibilidade = document.getElementById('opcoes-acessibilidade');
+
+  botaoDeAcessibilidade.addEventListener('click', function () {
+    botaoDeAcessibilidade.classList.toggle('rotacao-botao');
+    opcoesDeAcessibilidade.classList.toggle('apresenta-lista');
+
+    // Atualiza atributo aria-expanded
+    const estaExpandido = botaoDeAcessibilidade.getAttribute('aria-expanded') === 'true';
+    botaoDeAcessibilidade.setAttribute('aria-expanded', !estaExpandido);
+  });
+
+  // Exemplo de funcionalidade A+ e A-
+  const aumentarFonte = document.getElementById('aumentar-fonte');
+  const diminuirFonte = document.getElementById('diminuir-fonte');
+
+  aumentarFonte.addEventListener('click', function () {
+    document.body.style.fontSize = 'larger';
+  });
+
+  diminuirFonte.addEventListener('click', function () {
+    document.body.style.fontSize = 'smaller';
+  });
+});
